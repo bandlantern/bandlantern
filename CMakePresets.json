@@ -1,0 +1,48 @@
+{
+  "version": 6,
+  "configurePresets": [
+    { "name": "base", "hidden": true, "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build/${presetName}",
+      "cacheVariables": {
+        "CMAKE_CXX_STANDARD": "20",
+        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
+        "CMAKE_TOOLCHAIN_FILE": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake" } },
+    { "name": "linux-debug", "inherits": "base",
+      "cacheVariables": { "CMAKE_BUILD_TYPE": "Debug" } },
+    { "name": "linux-release", "inherits": "base",
+      "cacheVariables": { "CMAKE_BUILD_TYPE": "Release" } },
+    { "name": "linux-asan", "inherits": "base",
+      "cacheVariables": { "CMAKE_BUILD_TYPE": "RelWithDebInfo",
+        "CMAKE_CXX_FLAGS": "-fsanitize=address,undefined -fno-omit-frame-pointer" } },
+    { "name": "linux-tsan", "inherits": "base",
+      "cacheVariables": { "CMAKE_BUILD_TYPE": "RelWithDebInfo",
+        "CMAKE_CXX_FLAGS": "-fsanitize=thread -fno-omit-frame-pointer" } },
+    { "name": "macos-debug", "inherits": "base",
+      "cacheVariables": { "CMAKE_BUILD_TYPE": "Debug" } },
+    { "name": "macos-release", "inherits": "base",
+      "cacheVariables": { "CMAKE_BUILD_TYPE": "Release" } },
+    { "name": "win-msvc", "generator": "Visual Studio 17 2022",
+      "binaryDir": "${sourceDir}/build/win-msvc",
+      "cacheVariables": {
+        "CMAKE_CXX_STANDARD": "20",
+        "CMAKE_TOOLCHAIN_FILE": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake" } }
+  ],
+  "buildPresets": [
+    { "name": "linux-debug", "configurePreset": "linux-debug" },
+    { "name": "linux-release", "configurePreset": "linux-release" },
+    { "name": "linux-asan",  "configurePreset": "linux-asan" },
+    { "name": "linux-tsan",  "configurePreset": "linux-tsan" },
+    { "name": "macos-debug", "configurePreset": "macos-debug" },
+    { "name": "macos-release", "configurePreset": "macos-release" },
+    { "name": "win-msvc",    "configurePreset": "win-msvc", "configuration": "Debug" }
+  ],
+  "testPresets": [
+    { "name": "linux-debug", "configurePreset": "linux-debug", "output": { "outputOnFailure": true }, "execution": { "timeout": 60 } },
+    { "name": "linux-release", "configurePreset": "linux-release", "output": { "outputOnFailure": true }, "execution": { "timeout": 60 } },
+    { "name": "linux-asan",  "configurePreset": "linux-asan",  "output": { "outputOnFailure": true }, "execution": { "timeout": 60 } },
+    { "name": "linux-tsan",  "configurePreset": "linux-tsan",  "output": { "outputOnFailure": true }, "execution": { "timeout": 60 } },
+    { "name": "macos-debug", "configurePreset": "macos-debug", "output": { "outputOnFailure": true }, "execution": { "timeout": 60 } },
+    { "name": "macos-release", "configurePreset": "macos-release", "output": { "outputOnFailure": true }, "execution": { "timeout": 60 } },
+    { "name": "win-msvc",    "configurePreset": "win-msvc", "configuration": "Debug", "output": { "outputOnFailure": true }, "execution": { "timeout": 60 } }
+  ]
+}

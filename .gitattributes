@@ -1,0 +1,14 @@
+* text=auto eol=lf
+*.bat  text eol=crlf
+*.cmd  text eol=crlf
+*.ps1  text eol=crlf
+# Binary data
+*.png  binary
+*.jpg  binary
+*.wav  binary
+*.sigmf-data binary
+*.cu8  binary
+*.bin  binary
+*.cs16 binary
+*.cf32 binary
+*.onnx binary

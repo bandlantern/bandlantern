@@ -1,0 +1,44 @@
+name: Set up vcpkg
+description: >
+  Fetch vcpkg at the builtin-baseline commit pinned in vcpkg.json (single source of
+  truth), bootstrap it, export VCPKG_ROOT, and cache vcpkg binary packages.
+
+runs:
+  using: composite
+  steps:
+    - name: Read baseline from vcpkg.json
+      id: baseline
+      shell: bash
+      run: |
+        sha=$(python3 -c "import json; print(json.load(open('vcpkg.json'))['builtin-baseline'])")
+        echo "sha=$sha" >> "$GITHUB_OUTPUT"
+
+    # Shallow fetch of the one pinned commit: much smaller than a full vcpkg clone,
+    # and the baseline commit is all manifest mode needs when no version overrides exist.
+    - name: Fetch vcpkg
+      shell: bash
+      run: |
+        vcpkg_dir="$RUNNER_TEMP/vcpkg"
+        git init -q "$vcpkg_dir"
+        git -C "$vcpkg_dir" fetch -q --depth 1 https://github.com/microsoft/vcpkg.git "${{ steps.baseline.outputs.sha }}"
+        git -C "$vcpkg_dir" checkout -q FETCH_HEAD
+        echo "VCPKG_ROOT=$vcpkg_dir" >> "$GITHUB_ENV"
+        echo "VCPKG_BINARY_SOURCES=clear;files,$RUNNER_TEMP/vcpkg-bincache,readwrite" >> "$GITHUB_ENV"
+        mkdir -p "$RUNNER_TEMP/vcpkg-bincache"
+
+    - name: Bootstrap vcpkg (Windows)
+      if: runner.os == 'Windows'
+      shell: pwsh
+      run: '& "$env:VCPKG_ROOT\bootstrap-vcpkg.bat" -disableMetrics'
+
+    - name: Bootstrap vcpkg (Linux/macOS)
+      if: runner.os != 'Windows'
+      shell: bash
+      run: '"$VCPKG_ROOT/bootstrap-vcpkg.sh" -disableMetrics'
+
+    - name: Cache vcpkg binary packages
+      uses: actions/cache@v5
+      with:
+        path: ${{ runner.temp }}/vcpkg-bincache
+        key: vcpkg-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('vcpkg.json') }}
+        restore-keys: vcpkg-${{ runner.os }}-${{ runner.arch }}-

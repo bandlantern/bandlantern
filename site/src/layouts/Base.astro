@@ -1,0 +1,74 @@
+---
+interface Props {
+  title: string;
+}
+const { title } = Astro.props;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <header>
+      <a class="site-name" href="/">Bandlantern devlog</a>
+    </header>
+    <main>
+      <slot />
+    </main>
+    <footer>
+      Text CC BY 4.0. Code MIT. Every post ends with a note on what AI did.
+    </footer>
+  </body>
+</html>
+
+<style is:global>
+  /* Graphite palette, copied from ui/themes/graphite.json so the devlog matches the app. */
+  :root {
+    --bg: #121418;
+    --surface: #1a1d23;
+    --border: #353b46;
+    --text: #e4e7ec;
+    --text-muted: #9aa2b1;
+    --accent: #4fb3d9;
+    --led-on: #ff4433;
+  }
+  body {
+    margin: 0 auto;
+    max-width: 46rem;
+    padding: 1.5rem 1rem 3rem;
+    background: var(--bg);
+    color: var(--text);
+    font: 1.05rem/1.65 system-ui, sans-serif;
+  }
+  a {
+    color: var(--accent);
+  }
+  header {
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.75rem;
+    margin-bottom: 2rem;
+  }
+  .site-name {
+    color: var(--led-on);
+    font-family: ui-monospace, monospace;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-decoration: none;
+  }
+  pre {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 0.75rem;
+    overflow-x: auto;
+  }
+  footer {
+    margin-top: 3rem;
+    border-top: 1px solid var(--border);
+    padding-top: 0.75rem;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+  }
+</style>

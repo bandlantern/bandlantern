@@ -1,0 +1,52 @@
+# Build output
+build/
+out/
+vcpkg_installed/
+compile_commands.json
+.cache/
+
+# Node / UI
+node_modules/
+dist/
+*.tsbuildinfo
+
+# Python
+.venv/
+venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Large IQ recordings live outside Git
+testdata/**/*.sigmf-data
+testdata/**/*.cu8
+testdata/**/*.cs16
+testdata/**/*.cf32
+testdata/large/
+testdata/recordings/
+testdata/captures/*.wav
+
+# Secrets: never commit (API keys, certs)
+.env
+*.pem
+*.key
+*.pfx
+*.p12
+secrets/
+
+# Editors / OS
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+.idea/
+.DS_Store
+Thumbs.db
+
+# Time tracker: private, local only (the log, the running timer, the current phase)
+progress/timelog.csv
+progress/.tt-active
+progress/current-phase
+
+# Claude Code: fan-out worktrees and per-machine settings (skills/agents/settings.json ARE committed)
+.claude/worktrees/
+.claude/settings.local.json

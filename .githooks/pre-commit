@@ -1,0 +1,8 @@
+#!/bin/sh
+# Blocks commits that contain secrets (CLAUDE.md: never commit secrets).
+# Enable once per clone: git config core.hooksPath .githooks
+if ! command -v gitleaks >/dev/null 2>&1; then
+    echo "pre-commit: gitleaks not found on PATH; install it (docs/dev/setup-dell.md)." >&2
+    exit 1
+fi
+exec gitleaks git --pre-commit --staged --redact --no-banner
