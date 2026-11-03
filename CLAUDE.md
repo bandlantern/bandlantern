@@ -105,5 +105,5 @@ Ham It Up v1.3 upconverter (125 MHz LO). RX only.
 - Archive (private, read-only): ~/dev/sdr-vantage
 
 CI: Linux, Windows, and macOS on every push (public repo: free runners).
-CURRENT TASK: Stage 0 skeleton done. Next: create `bandlantern/bandlantern` on GitHub (owner's go-ahead),
-Cloudflare Pages (site/README.md), then the plumbing for A0 and post 0.
+CURRENT TASK: Stage 0 done: GitHub repo `bandlantern/bandlantern`, Cloudflare Pages live at bandlantern.com
+(www 301s to the apex). Next: the plumbing for A0 and post 0.
