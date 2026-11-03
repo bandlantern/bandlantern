@@ -21,17 +21,17 @@ curriculum module adds a demodulator or decoder to the bench and ends with a dev
 
 More directories appear as the modules need them.
 
-## Build (Linux / WSL)
+## Build (macOS / Linux)
 
 Needs CMake ≥ 3.25, Ninja, a C++20 compiler, and vcpkg (`VCPKG_ROOT` set).
 
 ```bash
-cmake --preset linux-debug
-cmake --build --preset linux-debug
-ctest --preset linux-debug
+cmake --preset macos-debug
+cmake --build --preset macos-debug
+ctest --preset macos-debug
 ```
 
-Other presets: `linux-asan`, `linux-tsan`, `macos-debug`, `win-msvc`.
+Other presets: `macos-asan`, `macos-tsan`, `linux-debug`, `linux-asan`, `linux-tsan`, `win-msvc`.
 
 ## License
 

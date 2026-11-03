@@ -31,7 +31,7 @@ Real-time and style
 
 Done means
 - Build and tests pass; run them with trimmed output, e.g.
-  `cmake --build --preset linux-debug 2>&1 | tail -20 && ctest --preset linux-debug --output-on-failure | tail -40`.
+  `cmake --build --preset macos-debug 2>&1 | tail -20 && ctest --preset macos-debug --output-on-failure | tail -40`.
 - Commit on your worktree branch with a one-line message.
 - Report back in at most 10 lines: what you built, files touched, test status, contract gaps,
   open questions. No recap of the code.

@@ -85,10 +85,13 @@ Ham It Up v1.3 upconverter (125 MHz LO). RX only.
 - Answer concisely; skip recaps of what was just done unless asked.
 
 ## Commands
-- Build/test (WSL): `cmake --preset linux-debug && cmake --build --preset linux-debug && ctest --preset linux-debug`
-  (also `linux-asan`, `linux-tsan`; Windows: `win-msvc`). Live RTL needs `linux-release`.
-- Windows build from WSL (owner's clone at `C:\dev\bandlantern`; adjust). It pulls from the WSL clone; keep the single quotes, bash eats backslashes in double quotes:
-  `cd /mnt/c && cmd.exe /c 'cd /d C:\dev\bandlantern && git pull --ff-only \\wsl.localhost\Ubuntu\home\ethan\dev\bandlantern main && cmake --preset win-msvc && cmake --build --preset win-msvc && ctest --preset win-msvc'`
+- Machines (docs/dev/WORKFLOW.md §4.1): MacBook (arm64) is the main dev machine; no dongle attached
+  by default, so all routine tests run on synthetic/recorded IQ. The Dell (Windows + WSL) is the
+  bench: dongle, Ham It Up, HF antenna, soak tests, Windows builds and audio. GitHub syncs the two.
+- Build/test (Mac): `cmake --preset macos-debug && cmake --build --preset macos-debug && ctest --preset macos-debug`
+  (also `macos-asan`, `macos-tsan`). Live RTL needs `macos-release`. On the Dell: `linux-*` in WSL, `win-msvc`.
+- Python (Mac): `.venv/bin/python`, `.venv/bin/pytest`; setup: `python3 -m venv .venv && .venv/bin/pip install -r tools/py/requirements.txt`
+- Windows/MSVC breaks: caught by CI or on the Dell (`git pull` there, then `win-msvc`); none locally.
 - Site: `cd site && npm run build` (Astro; see site/README.md)
 - Skills: /kickoff /golden /port /fanout /review /adr /depcheck /wrap /weekly /retro (.claude/skills/)
 - Env check: `bash tools/verify-env.sh`

@@ -17,7 +17,7 @@ _Revised 2026-10-26:_ the first full day (~3–4 h, mostly docs/admin) used ~5% 
 3. **`/compact` only when you must keep going** inside one slice and the conversation is getting long. Check `/context` if you're unsure.
 4. **Point at files, don't let Claude go looking for them.** Write "edit `engine/api/server.cpp`" or use `@engine/api/server.cpp` instead of "find where the server is".
 5. **When porting from the archive, name the archive files** (`~/dev/sdr-vantage/...`); don't let Claude browse it.
-6. **Let Claude run builds and tests** with trimmed output (`ctest --preset linux-debug --output-on-failure | tail -40`) so it closes the fix loop itself. Only soak tests and benchmarks go in your own terminal.
+6. **Let Claude run builds and tests** with trimmed output (`ctest --preset macos-debug --output-on-failure | tail -40`) so it closes the fix loop itself. Only soak tests and benchmarks go in your own terminal.
 7. **Use plan mode (Shift+Tab) for anything larger than one file.** A cheap plan you approve beats an expensive wrong implementation you have to undo.
 8. **Opus at medium effort for planning and hard work; Sonnet for implementing an approved plan and for delegated agents.** High effort for DSP math, real-time and threading work. See §2.
 9. **Use subagents for independent parallel work** against a fixed interface, or for background work while you're on hardware (§2.1). Not for single-file tasks: each agent starts cold and re-reads context.
@@ -62,7 +62,7 @@ Map these four session types onto whichever days suit you: two build sessions, o
 |---|---|---|---|
 | **A: Module** | ~5 h | The current module: study, derivation, your Python and C++ | Tutor and review |
 | **B: Module or plumbing** | ~5 h | Continue the module, or Claude ports the plumbing the next module needs | Heavy for plumbing |
-| **C: Test & Windows day** | ~5 h | **Hardware smoke test with the dongle**, Windows audio, perf measurements, IQ recording. Builds and `rtl_tcp` tests are mostly done from WSL now (§4.1) | Light (debug only) |
+| **C: Bench day (Dell)** | ~5 h | **Hardware smoke test with the dongle**, IQ recording for the Mac's replay tests, soak tests, Windows build and audio, perf measurements (§4.1) | Light (debug only) |
 | **D: Write-up and reading** | ~5 h | The devlog post, ADRs, weekly review, spec reading | Light (edits only when asked) |
 
 Every other week, end session D with something demoable: a screenshot, a short recording, or a passing benchmark.
@@ -93,12 +93,14 @@ WRAP   (10–15 min)
   git push                        # GitHub is your backup and the bridge to the Windows clone
 ```
 
-### 4.1 Windows from WSL
+### 4.1 Two machines: Mac for development, Dell for the bench
 
-WSL uses mirrored networking (`networkingMode=mirrored` in `.wslconfig`), so Windows ports appear on `127.0.0.1` in WSL.
-
-- **Live IQ in WSL:** run `rtl_tcp.exe -a 127.0.0.1` on Windows, then point the Linux engine at `127.0.0.1:1234`. The `rtl_tcp` client gets tested against the real dongle without leaving WSL. Only native audio out needs a Windows build.
-- **Windows build from WSL:** see the command in CLAUDE.md (it pulls from the WSL clone). `C:\dev\bandlantern` is the owner's Windows clone; adjust to yours. This catches MSVC breaks before CI does.
+- **MacBook (main, mobile):** all module and plumbing work, builds and tests (`macos-*` presets), Python (`.venv`), site. No dongle by default, so every routine test runs on **synthetic IQ** (fixed seed) or **recorded IQ** (SigMF/WAV). If a feature can only be checked with live hardware, add a replay path first.
+- **Dell (stationary bench):** SMArt v5 + Ham It Up + HF antenna. Soak tests, live smoke tests, IQ recording, Windows build (`win-msvc`) and Windows audio, plus `linux-*` and `linux-tsan` in WSL.
+- **Sync through GitHub:** `git push` on the Mac, `git pull --ff-only` on the Dell (Windows clone and WSL clone). Commit from one machine at a time.
+- **Recordings:** capture on the Dell into `testdata/recordings/` (gitignored), with the SigMF metadata, then copy them to the same path on the Mac (`scp`/`rsync`, or a USB stick). Lawful captures only (CURRICULUM.md Rules).
+- **Live IQ on the Mac without moving the dongle:** on the Dell run `rtl_tcp.exe -a <dell-lan-ip>`, then point the Mac engine at `<dell-lan-ip>:1234`. `rtl_tcp` has no authentication: home LAN only, start it for the session and stop it afterwards. To use the dongle directly, plug it into the Mac and run `rtl_tcp -a 127.0.0.1` (Homebrew).
+- **WSL on the Dell** uses mirrored networking (`networkingMode=mirrored` in `.wslconfig`), so `rtl_tcp.exe -a 127.0.0.1` on Windows is reachable from the Linux engine at `127.0.0.1:1234`.
 
 ---
 
@@ -147,7 +149,7 @@ Compare it to the C++/Python equivalent. Keep it under 20 lines.
 
 ## 7. Time tracking cheat sheet
 
-Optional alias (add to `~/.bashrc`): `alias tt=~/dev/bandlantern/tools/tt`
+Optional alias (add to `~/.zshrc`): `alias tt=~/dev/bandlantern/tools/tt`
 
 | Command | Does |
 |---|---|
@@ -159,4 +161,4 @@ Optional alias (add to `~/.bashrc`): `alias tt=~/dev/bandlantern/tools/tt`
 | `tt report [week\|lastweek\|month\|phase\|all]` | Totals by day/category/phase; `phase`/`all` compare against the plan's estimates |
 | `tt phase [N]` | Show or set the current phase |
 
-The log lives in `progress/timelog.csv`, which is gitignored: your hours stay private. Run the tracker from WSL only, so you never have two timers, and back the file up with the rest of your local data.
+The log lives in `progress/timelog.csv`, which is gitignored: your hours stay private. Run the tracker on the Mac only, so you never have two timers; log bench time afterwards with `tt add ... hw`. Back the file up with the rest of your local data.

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# WSL dev-environment check (docs/dev/setup-dell.md, Appendix A).
+# Dev-environment check for the Mac and the Dell/WSL (docs/dev/WORKFLOW.md §4.1).
 set -u
 check() {
   local label="$1"; shift
@@ -19,6 +19,9 @@ check npm npm --version
 check python python3 --version
 check vcpkg vcpkg version
 check nvidia-smi nvidia-smi -L
+check rtl_tcp sh -c "command -v rtl_tcp"
+printf "%-14s" "py venv"
+if [ -x .venv/bin/python ]; then .venv/bin/python -c "import numpy, scipy, matplotlib, pytest; print('numpy', numpy.__version__, 'scipy', scipy.__version__)" 2>&1 | tail -n1; else echo "MISSING (.venv; see CLAUDE.md Commands)"; fi
 check claude claude --version
 echo "VCPKG_ROOT=${VCPKG_ROOT:-unset}"
 echo "UTC clock: $(date -u)"
