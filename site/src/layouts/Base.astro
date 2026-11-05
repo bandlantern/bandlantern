@@ -58,6 +58,12 @@ const { title } = Astro.props;
     letter-spacing: 0.05em;
     text-decoration: none;
   }
+  /* Images fill the text column and keep their aspect ratio. */
+  main img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
   pre {
     background: var(--surface);
     border: 1px solid var(--border);
