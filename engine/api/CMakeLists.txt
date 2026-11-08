@@ -1,2 +1,10 @@
-add_library(bl_api STATIC frame.cpp)
+find_package(Boost REQUIRED)
+find_package(nlohmann_json CONFIG REQUIRED)
+find_package(Threads REQUIRED)
+
+add_library(bl_api STATIC frame.cpp token.cpp server.cpp)
 target_include_directories(bl_api PUBLIC ${PROJECT_SOURCE_DIR}/engine)
+target_link_libraries(bl_api PUBLIC Boost::headers nlohmann_json::nlohmann_json Threads::Threads)
+if(WIN32)
+  target_link_libraries(bl_api PUBLIC ws2_32 mswsock bcrypt)
+endif()

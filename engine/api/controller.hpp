@@ -54,12 +54,15 @@ class IController {
 };
 
 // What the controller pushes to clients: rows (frames.md) and unsolicited events (messages.md
-// `info`, `error`), for every authenticated socket. Implemented by the server. May be called
-// from any thread, including the pipeline's; must not block.
+// `info`, `error`), for every authenticated socket. Implemented by the server. None of these
+// block.
 class IEngineEvents {
  public:
   virtual ~IEngineEvents() = default;
+  // Wait-free, so it is safe on the pipeline's DSP thread. One caller at a time: the per-socket
+  // queues are single-producer (a new pipeline run may use a new thread once the old one joined).
   virtual void on_row(const SpectrumRow& row) = 0;
+  // Any thread.
   virtual void on_info(const EngineInfo& info) = 0;
   virtual void on_error(const ControlError& error) = 0;
 };
