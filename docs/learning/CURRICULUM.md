@@ -137,7 +137,7 @@ isn't. If a module drags past six weeks, cut its scope and publish what you lear
 
 ## Bench plumbing (Claude ports it from the archive, lazily; ADR-001)
 Only what the next module needs, in this order:
-- **Before A0:** the engine server and protocol, SigMF/WAV readers, the SPSC ring, controller
+- **Before A0** (done 2026-11-08; the waterfall waits on the A0 pipeline): the engine server and protocol, SigMF/WAV readers, the SPSC ring, controller
   wiring with seams for the owner's blocks, the UI (waterfall, spectrum trace, panels), test-IQ
   tools (`synth_iq`, `wav_iq`).
 - **Before the first audio:** audio device output; UI S-meter, tuning, key map.

@@ -105,5 +105,6 @@ Ham It Up v1.3 upconverter (125 MHz LO). RX only.
 - Archive (private, read-only): ~/dev/archive/sdr-vantage
 
 CI: Linux, Windows, and macOS on every push (public repo: free runners).
-CURRENT TASK: Stage 0 done: GitHub repo `bandlantern/bandlantern`, Cloudflare Pages live at bandlantern.com
-(www 301s to the apex). Next: the plumbing for A0 and post 0.
+CURRENT TASK: Bench plumbing before A0 done (2026-11-08): engine server + API v0.1, controller,
+readers, SPSC ring, UI. `play` replies `not_available` until the owner's A0 pipeline plugs into
+engine/pipeline/pipeline.hpp (swap two lines in engine/main.cpp). Next: A0 (`/kickoff A0`) and post 0.
