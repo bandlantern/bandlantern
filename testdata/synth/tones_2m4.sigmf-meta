@@ -1,0 +1,35 @@
+{
+  "global": {
+    "core:datatype": "cu8",
+    "core:sample_rate": 2400000,
+    "core:version": "1.2.0",
+    "core:description": "Three tones + noise, seed 1",
+    "core:recorder": "bandlantern synth_iq.py"
+  },
+  "captures": [
+    {
+      "core:sample_start": 0,
+      "core:frequency": 100000000
+    }
+  ],
+  "annotations": [
+    {
+      "core:sample_start": 0,
+      "core:freq_lower_edge": 100149500,
+      "core:freq_upper_edge": 100150500,
+      "core:label": "tone -20 dBFS"
+    },
+    {
+      "core:sample_start": 0,
+      "core:freq_lower_edge": 99599500,
+      "core:freq_upper_edge": 99600500,
+      "core:label": "tone -40 dBFS"
+    },
+    {
+      "core:sample_start": 0,
+      "core:freq_lower_edge": 100899500,
+      "core:freq_upper_edge": 100900500,
+      "core:label": "tone -60 dBFS"
+    }
+  ]
+}

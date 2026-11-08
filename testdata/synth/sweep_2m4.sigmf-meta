@@ -1,0 +1,23 @@
+{
+  "global": {
+    "core:datatype": "cu8",
+    "core:sample_rate": 2400000,
+    "core:version": "1.2.0",
+    "core:description": "Linear sweep -1.0 to +1.0 MHz at -20 dBFS + noise, seed 2",
+    "core:recorder": "bandlantern synth_iq.py"
+  },
+  "captures": [
+    {
+      "core:sample_start": 0,
+      "core:frequency": 100000000
+    }
+  ],
+  "annotations": [
+    {
+      "core:sample_start": 0,
+      "core:freq_lower_edge": 99000000,
+      "core:freq_upper_edge": 101000000,
+      "core:label": "sweep -20 dBFS"
+    }
+  ]
+}
