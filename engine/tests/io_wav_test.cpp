@@ -108,10 +108,13 @@ TEST_CASE("WAV centre frequency reaches meta() through open_iq_file", "[io][wav]
   std::filesystem::create_directories(path);
   const auto file = path / "baseband_7100000Hz_x.wav";
   std::ofstream(file, std::ios::binary) << s16_wav(4);
-  auto opened = open_iq_file(file, false);
-  REQUIRE(std::holds_alternative<std::unique_ptr<IIqSource>>(opened));
-  CHECK(source(opened).meta().center_freq_hz == 7100000.0);
-  CHECK(datatype_name(source(opened).meta().datatype) == "cs16_le");
+  {
+    // Scoped so the reader closes the file before remove_all (Windows refuses to delete open files).
+    auto opened = open_iq_file(file, false);
+    REQUIRE(std::holds_alternative<std::unique_ptr<IIqSource>>(opened));
+    CHECK(source(opened).meta().center_freq_hz == 7100000.0);
+    CHECK(datatype_name(source(opened).meta().datatype) == "cs16_le");
+  }
   std::filesystem::remove_all(path);
 }
 
