@@ -54,6 +54,11 @@ body {
   min-height: 0;
   overflow-y: auto;
 }
+/* Sidebar panels keep their content height (a notice can grow the Source panel); the sidebar
+   scrolls instead. Shrinking them let the Source body spill under the Status panel. */
+.sidebar > .panel {
+  flex: none;
+}
 .display {
   display: grid;
   grid-template-rows: minmax(120px, 30%) minmax(160px, 1fr);
