@@ -42,6 +42,8 @@ class IIqSource {
   // Fills out with up to out.size() cf32 samples and returns how many it wrote. 0 means end of
   // file (never while looping, unless the file holds no samples) or a read error (then failed()
   // is true). Blocking file I/O, not paced: call it only from the pipeline's reader thread.
+  // `out` must not be empty: an empty span also returns 0 and would look like end of file.
+  // Samples are passed through as stored: cf32_le files may hold NaN or inf.
   virtual std::size_t read(std::span<Cf32> out) = 0;
 
   virtual bool failed() const = 0;
