@@ -84,10 +84,11 @@ revealed. With `<port>` the engine's actual port:
 
 ### Bootstrap in a plain browser
 
-1. The engine starts listening, then opens the system browser at
-   `http://127.0.0.1:<port>/#token=<token>`. The fragment is not sent to the server.
-2. If it cannot open a browser (e.g. under WSL), it does nothing unless started with
-   `--print-url`, which prints the URL to **its own stderr** only.
+1. The engine starts listening. Started with `--print-url`, it prints
+   `http://127.0.0.1:<port>/#token=<token>` to **its own stderr** only; open that in a browser.
+   The fragment is not sent to the server. (Opening the browser itself comes later, without
+   putting the token on another process's command line, where other local users could read it.)
+2. Without `--print-url` the engine prints nothing that contains the token.
 3. The page reads `location.hash`, stores the token in `sessionStorage` under
    `bandlantern.token`, and clears the fragment with `history.replaceState` before anything
    else runs.

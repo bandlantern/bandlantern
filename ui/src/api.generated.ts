@@ -9,7 +9,7 @@ export type CommandId = number;
 
 export type IqDatatype = "cu8" | "cs16_le" | "cf32_le";
 
-export type ErrorCode = "bad_version" | "unknown_type" | "bad_request" | "bad_value" | "bad_path" | "not_found" | "bad_format" | "source_error" | "internal";
+export type ErrorCode = "bad_version" | "unknown_type" | "bad_request" | "bad_value" | "bad_path" | "not_found" | "bad_format" | "not_available" | "source_error" | "internal";
 
 export interface SourceInfo {
   kind: "sigmf" | "wav";

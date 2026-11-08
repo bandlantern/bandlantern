@@ -25,7 +25,7 @@
     "ErrorCode": {
       "title": "ErrorCode",
       "enum": ["bad_version", "unknown_type", "bad_request", "bad_value", "bad_path", "not_found",
-               "bad_format", "source_error", "internal"]
+               "bad_format", "not_available", "source_error", "internal"]
     },
     "SourceInfo": {
       "title": "SourceInfo", "type": "object",

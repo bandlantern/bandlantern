@@ -53,7 +53,7 @@ Start a SigMF or WAV IQ file as the source. Replaces any current source.
 Playback is paced to real time (the file's sample rate).
 Reply: `info` (with `source` filled and `streaming: true`).
 Errors: `bad_path`, `not_found` (meta or its `.sigmf-data` missing), `bad_format` (meta invalid
-or datatype not supported).
+or datatype not supported), `not_available` (this engine build cannot play files yet).
 
 ### `stop`
 ```json
@@ -127,5 +127,6 @@ The engine discarded spectrum rows because this client was not keeping up (frame
 | `bad_path` | `play.path` not allowed |
 | `not_found` | `play.path` does not exist |
 | `bad_format` | File unreadable as SigMF/WAV IQ, or unsupported datatype |
+| `not_available` | `play` on an engine built without the file readers or the playback pipeline (before A0) |
 | `source_error` | Read error during playback (the source stops; `info` follows) |
 | `internal` | Engine bug; details in the engine log, never in `message` |
