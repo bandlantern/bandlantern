@@ -1,0 +1,40 @@
+{
+  "id": "teal-navy",
+  "name": "Teal & Navy",
+  "tokens": {
+    "color": {
+      "bg": "#0c1424",
+      "surface": "#121d33",
+      "surface-raised": "#1b2a47",
+      "surface-sunken": "#080e1a",
+      "border": "#2a3a5c",
+      "shadow": "#000000a6",
+      "text": "#dfe8f5",
+      "text-muted": "#93a4c0",
+      "text-disabled": "#4f5f7d",
+      "accent": "#2dd4bf",
+      "accent-text": "#04201c",
+      "select-bg": "#14504a",
+      "select-text": "#e6fffb",
+      "focus": "#2dd4bf",
+      "led-bg": "#0b0505",
+      "led-on": "#ff4433",
+      "led-off": "#2c0f0b",
+      "status-ok": "#4cc38a",
+      "status-warn": "#e5b03a",
+      "status-fail": "#ff6b5c"
+    },
+    "size": {
+      "font-ui": "13px",
+      "font-small": "11px",
+      "header-height": "28px",
+      "control-height": "28px",
+      "space-1": "4px",
+      "space-2": "8px",
+      "space-3": "12px"
+    },
+    "font": {
+      "ui": "system-ui, 'Segoe UI', 'Noto Sans', 'Helvetica Neue', sans-serif"
+    }
+  }
+}

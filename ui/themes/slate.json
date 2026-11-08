@@ -1,0 +1,40 @@
+{
+  "id": "slate",
+  "name": "Slate",
+  "tokens": {
+    "color": {
+      "bg": "#e3e7ec",
+      "surface": "#f3f5f7",
+      "surface-raised": "#ffffff",
+      "surface-sunken": "#e8ebef",
+      "border": "#c2c9d2",
+      "shadow": "#1b233029",
+      "text": "#1b2330",
+      "text-muted": "#525d6c",
+      "text-disabled": "#9aa3af",
+      "accent": "#0f766e",
+      "accent-text": "#ffffff",
+      "select-bg": "#0f766e",
+      "select-text": "#ffffff",
+      "focus": "#0f766e",
+      "led-bg": "#0b0505",
+      "led-on": "#ff4433",
+      "led-off": "#2c0f0b",
+      "status-ok": "#1a7f4b",
+      "status-warn": "#9a6700",
+      "status-fail": "#c62828"
+    },
+    "size": {
+      "font-ui": "13px",
+      "font-small": "11px",
+      "header-height": "28px",
+      "control-height": "28px",
+      "space-1": "4px",
+      "space-2": "8px",
+      "space-3": "12px"
+    },
+    "font": {
+      "ui": "system-ui, 'Segoe UI', 'Noto Sans', 'Helvetica Neue', sans-serif"
+    }
+  }
+}

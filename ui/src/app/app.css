@@ -1,0 +1,171 @@
+/* App page layout only; widget looks live in widgets/widgets.css. The app fills the viewport
+   exactly (no page scrollbar on wide screens); the waterfall absorbs spare height. */
+html,
+body,
+#app {
+  height: 100%;
+  margin: 0;
+}
+/* Native scrollbars and form controls follow the theme. */
+:root {
+  color-scheme: dark;
+}
+:root[data-theme="slate"] {
+  color-scheme: light;
+}
+body {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font: var(--size-font-ui) / 1.4 var(--font-ui);
+}
+.app {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  height: 100%;
+}
+.appbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--size-space-2) var(--size-space-3);
+  padding: var(--size-space-2) var(--size-space-3);
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-surface);
+}
+.brand {
+  margin-right: var(--size-space-2);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+.spacer {
+  flex: 1;
+}
+.workspace {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 320px;
+  gap: var(--size-space-2);
+  min-height: 0;
+  padding: var(--size-space-2);
+}
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-space-2);
+  min-height: 0;
+  overflow-y: auto;
+}
+.display {
+  display: grid;
+  grid-template-rows: minmax(120px, 30%) minmax(160px, 1fr);
+  gap: var(--size-space-2);
+  min-height: 0;
+  min-width: 0;
+}
+.spectrum-canvas,
+.waterfall-canvas {
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+  width: 100%;
+  display: block;
+}
+.waterfall-panel .panel-body,
+.spectrum-panel .panel-body {
+  padding: 0;
+  gap: 0;
+}
+.freq-axis {
+  position: relative;
+  flex: none;
+  height: calc(var(--size-font-small) + 6px);
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-text-muted);
+  font-size: var(--size-font-small);
+  overflow: hidden;
+}
+.freq-tick {
+  position: absolute;
+  top: 2px;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+.form-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  gap: var(--size-space-2);
+}
+.form-row > .field {
+  flex: 1;
+  min-width: 90px;
+}
+.form-row > .field.wide {
+  flex-basis: 100%;
+}
+/* An engine reply that is not good news; plain words, not a crash. */
+.notice {
+  margin: 0;
+  padding: var(--size-space-2);
+  border: 1px solid var(--color-status-warn);
+  border-left-width: 3px;
+  color: var(--color-text);
+}
+.notice.fail {
+  border-color: var(--color-status-fail);
+}
+.notice small {
+  display: block;
+  color: var(--color-text-muted);
+}
+.readouts {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--size-space-3);
+}
+.status-head {
+  display: flex;
+  align-items: center;
+  gap: var(--size-space-2);
+}
+.status-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--color-text-disabled);
+}
+.status-dot.ok {
+  background: var(--color-status-ok);
+}
+.status-dot.warn {
+  background: var(--color-status-warn);
+}
+.status-dot.fail {
+  background: var(--color-status-fail);
+}
+.splash {
+  display: grid;
+  place-items: center;
+  height: 100%;
+  font-size: 1.25em;
+}
+
+/* Narrow screens: panels stack and the page scrolls. */
+@media (max-width: 800px) {
+  html,
+  body,
+  #app {
+    height: auto;
+  }
+  .app {
+    grid-template-rows: auto auto;
+    height: auto;
+  }
+  .workspace {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .display {
+    grid-template-rows: 160px 300px;
+  }
+}

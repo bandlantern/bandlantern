@@ -61,6 +61,24 @@ jobs:
       - name: Test
         run: python -m pytest -q tools/py
 
+  ui:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: ui
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version-file: .node-version
+      - name: Install
+        run: npm ci
+      - name: Test
+        run: npm test
+      - name: Build
+        run: npm run build
+
   # Backstop for the .githooks/pre-commit scan, which `--no-verify` or a fresh clone can skip.
   secrets:
     runs-on: ubuntu-24.04
