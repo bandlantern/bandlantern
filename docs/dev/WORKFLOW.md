@@ -16,7 +16,7 @@ _Revised 2026-10-26:_ the first full day (~3–4 h, mostly docs/admin) used ~5% 
 2. **`/clear` between slices.** Each new task starts fresh, and `CLAUDE.md` reloads the context it needs. This is the biggest single saving.
 3. **`/compact` only when you must keep going** inside one slice and the conversation is getting long. Check `/context` if you're unsure.
 4. **Point at files, don't let Claude go looking for them.** Write "edit `engine/api/server.cpp`" or use `@engine/api/server.cpp` instead of "find where the server is".
-5. **When porting from the archive, name the archive files** (`~/dev/sdr-vantage/...`); don't let Claude browse it.
+5. **When porting from the archive, name the archive files** (`~/dev/archive/sdr-vantage/...`); don't let Claude browse it.
 6. **Let Claude run builds and tests** with trimmed output (`ctest --preset macos-debug --output-on-failure | tail -40`) so it closes the fix loop itself. Only soak tests and benchmarks go in your own terminal.
 7. **Use plan mode (Shift+Tab) for anything larger than one file.** A cheap plan you approve beats an expensive wrong implementation you have to undo.
 8. **Opus at medium effort for planning and hard work; Sonnet for implementing an approved plan and for delegated agents.** High effort for DSP math, real-time and threading work. See §2.

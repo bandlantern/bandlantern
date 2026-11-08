@@ -16,7 +16,7 @@ Clean room (ADR-004, ADR-005)
 - For DSP math, cite the spec/paper section in a comment above the block (provenance).
 - Add no dependencies. If one seems necessary, stop and report it with its license.
 - Plumbing only (ADR-001): never write DSP or decoder blocks (the owner writes those), and never
-  copy DSP code, DSP docs, prototypes, or golden vectors from the archive (`~/dev/sdr-vantage`).
+  copy DSP code, DSP docs, prototypes, or golden vectors from the archive (`~/dev/archive/sdr-vantage`).
 
 Contract
 - Don't change the contract file. If it's wrong or incomplete, finish what you can and report the

@@ -10,7 +10,7 @@ Kickoff for: $ARGUMENTS
    matching `now` issue if there is one (`gh issue list -l now`).
 2. Module work (tutor mode): name the module-loop step, the concepts and references to read, and
    2–3 questions for me to answer before any code. Don't plan the DSP implementation for me.
-3. Plumbing: list the archive files to port (`~/dev/sdr-vantage/...`; never DSP blocks, DSP
+3. Plumbing: list the archive files to port (`~/dev/archive/sdr-vantage/...`; never DSP blocks, DSP
    docs, prototypes, or golden vectors), what changes on the way (names, seams for my blocks),
    the archive ADRs to bring over, the tests that define "done", and the exact build/test command.
    No code yet.

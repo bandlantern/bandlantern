@@ -5,7 +5,7 @@ and own, clean-room DSP and decoders. Public, MIT-licensed.
 DIRECTION (ADR-002): a learning + portfolio project. The product is the owner's understanding of
 DSP and radio protocols, shown in devlog posts (`site/`); the app is the lab bench. Work follows
 docs/learning/CURRICULUM.md.
-FRESH START (ADR-001): this repo replaced a private predecessor, `~/dev/sdr-vantage` (the archive).
+FRESH START (ADR-001): this repo replaced a private predecessor, `~/dev/archive/sdr-vantage` (the archive).
 Claude ports plumbing from the archive lazily, only what the next module needs. ALL DSP is the
 owner's; never copy the archive's DSP code (`engine/dsp/` blocks), DSP docs (`docs/dsp/`),
 prototypes (`tools/proto/`), or golden vectors into this repo.
@@ -102,7 +102,7 @@ Ham It Up v1.3 upconverter (125 MHz LO). RX only.
 - Weekly log: progress/PROGRESS.md
 - Workflow: docs/dev/WORKFLOW.md
 - ADRs: docs/adr/
-- Archive (private, read-only): ~/dev/sdr-vantage
+- Archive (private, read-only): ~/dev/archive/sdr-vantage
 
 CI: Linux, Windows, and macOS on every push (public repo: free runners).
 CURRENT TASK: Stage 0 done: GitHub repo `bandlantern/bandlantern`, Cloudflare Pages live at bandlantern.com

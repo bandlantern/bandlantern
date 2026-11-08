@@ -10,5 +10,5 @@ New ADR: $ARGUMENTS
   `docs/adr/<NNNN>-<slug>.md`.
 - Fill in context (2–3 bullets), the decision, the alternatives considered, and the consequences.
   Under 40 lines.
-- If it carries over an archive ADR (`~/dev/sdr-vantage/docs/adr/`), add "was ADR-0xx" to
+- If it carries over an archive ADR (`~/dev/archive/sdr-vantage/docs/adr/`), add "was ADR-0xx" to
   **Related** and drop the parts about parked product work.
