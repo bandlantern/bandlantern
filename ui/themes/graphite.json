@@ -1,0 +1,40 @@
+{
+  "id": "graphite",
+  "name": "Graphite",
+  "tokens": {
+    "color": {
+      "bg": "#121418",
+      "surface": "#1a1d23",
+      "surface-raised": "#262a32",
+      "surface-sunken": "#0e1014",
+      "border": "#353b46",
+      "shadow": "#00000099",
+      "text": "#e4e7ec",
+      "text-muted": "#9aa2b1",
+      "text-disabled": "#5c6370",
+      "accent": "#4fb3d9",
+      "accent-text": "#08141a",
+      "select-bg": "#1f4658",
+      "select-text": "#e8f6fc",
+      "focus": "#4fb3d9",
+      "led-bg": "#0b0505",
+      "led-on": "#ff4433",
+      "led-off": "#2c0f0b",
+      "status-ok": "#4cc38a",
+      "status-warn": "#e5b03a",
+      "status-fail": "#ff5c4d"
+    },
+    "size": {
+      "font-ui": "13px",
+      "font-small": "11px",
+      "header-height": "28px",
+      "control-height": "28px",
+      "space-1": "4px",
+      "space-2": "8px",
+      "space-3": "12px"
+    },
+    "font": {
+      "ui": "system-ui, 'Segoe UI', 'Noto Sans', 'Helvetica Neue', sans-serif"
+    }
+  }
+}

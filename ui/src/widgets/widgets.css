@@ -1,0 +1,240 @@
+/* Bandlantern widgets. Every colour and size comes from theme tokens (themes/*.json via
+   tokens.ts); LED digits are drawn from scratch. */
+:root {
+  --focus-ring: 2px solid var(--color-focus);
+}
+/* ---- Panels */
+.panel {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+}
+.panel-header {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: var(--size-space-1);
+  height: var(--size-header-height);
+  padding: 0 var(--size-space-1) 0 var(--size-space-3);
+  border-bottom: 1px solid var(--color-border);
+  color: var(--color-text-muted);
+  font-size: var(--size-font-small);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.panel:focus-within > .panel-header {
+  color: var(--color-text);
+  border-left: 3px solid var(--color-accent);
+  padding-left: calc(var(--size-space-3) - 3px);
+}
+.panel-title {
+  flex: 1;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.panel-body {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-space-2);
+  padding: var(--size-space-2);
+}
+/* ---- Buttons */
+.button {
+  min-height: var(--size-control-height);
+  /* The extra bottom padding lifts the label 1px: UI fonts carry more space below the
+     baseline than above, so exact centring reads as slightly low. */
+  padding: 0 var(--size-space-3) 2px;
+  border: 1px solid var(--color-border);
+  background-color: var(--color-surface-raised);
+  color: var(--color-text);
+  font: inherit;
+  cursor: pointer;
+}
+/* Hover tints whatever background the button has rather than changing its border: at fractional
+   display scaling (125 %) Chrome can miss a border's top pixel row when a scrolled panel
+   repaints it, leaving half a hover edge behind (seen in the Doctor, 2026-11-01). */
+.button:hover:not(:disabled) {
+  background-image: linear-gradient(
+    color-mix(in srgb, var(--color-text) 10%, transparent),
+    color-mix(in srgb, var(--color-text) 10%, transparent)
+  );
+}
+.button:active:not(:disabled) {
+  background-color: var(--color-surface-sunken);
+}
+.button[aria-pressed="true"] {
+  border-color: var(--color-accent);
+  background-color: var(--color-select-bg);
+  color: var(--color-select-text);
+}
+.button.primary {
+  border-color: var(--color-accent);
+  background-color: var(--color-accent);
+  color: var(--color-accent-text);
+  font-weight: 600;
+}
+.button:disabled {
+  background-color: var(--color-surface);
+  color: var(--color-text-disabled);
+  box-shadow: none;
+  cursor: default;
+}
+/* Adjacent toggle buttons that read as one control. */
+/* ---- Group boxes, sunken wells, toolbars, status bar */
+/* Inspector section (Section.tsx): a disclosure header over its controls. */
+/* ---- Checkbox and radio (see Check.tsx) */
+.check {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 22px;
+}
+.check input {
+  position: absolute;
+  left: 0;
+  width: 14px;
+  height: 14px;
+  margin: 0;
+  opacity: 0;
+}
+.check .box {
+  position: relative;
+  flex: none;
+  box-sizing: border-box;
+  width: 14px;
+  height: 14px;
+  border: 1px solid var(--color-text-muted);
+  background: var(--color-surface-sunken);
+}
+.check .box.round {
+  border-radius: 50%;
+}
+.check input:checked + .box {
+  border-color: var(--color-accent);
+  background: var(--color-accent);
+}
+.check input:checked + .box::after {
+  content: "";
+  position: absolute;
+  left: 3.5px;
+  top: 0.5px;
+  width: 3px;
+  height: 7px;
+  border: solid var(--color-accent-text);
+  border-width: 0 2px 2px 0;
+  transform: rotate(40deg);
+}
+.check input:checked + .box.round {
+  background: radial-gradient(circle closest-side, var(--color-accent) 72%, transparent 80%)
+    var(--color-surface-sunken);
+}
+.check input:checked + .box.round::after {
+  content: none;
+}
+.check input:disabled ~ .text {
+  color: var(--color-text-disabled);
+}
+.check input:disabled + .box {
+  border-color: var(--color-text-disabled);
+  background: transparent;
+}
+.check input:focus-visible + .box {
+  outline: var(--focus-ring);
+  outline-offset: 2px;
+}
+/* ---- Text/number inputs and selects: sunken like the waterfall well, button height */
+.input {
+  box-sizing: border-box;
+  min-width: 0;
+  min-height: var(--size-control-height);
+  padding: 0 var(--size-space-2) 2px;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface-sunken);
+  color: var(--color-text);
+  font: inherit;
+  font-variant-numeric: tabular-nums;
+}
+.input:disabled {
+  color: var(--color-text-muted);
+}
+.input:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: 2px;
+}
+/* A small muted label above its control. */
+.field {
+  display: grid;
+  gap: 2px;
+  color: var(--color-text-muted);
+  font-size: var(--size-font-small);
+}
+.field > .input {
+  font-size: var(--size-font-ui);
+}
+/* ---- Data table */
+.led {
+  align-items: flex-end;
+  gap: 3px;
+}
+.led-digit {
+  width: 19px;
+  height: 30px;
+  overflow: visible; /* the slant pushes the lower-left corner outside the viewBox */
+  transform: skewX(-6deg);
+}
+/* The digit the keyboard and the last wheel turn act on. */
+
+/* ---- LED readout: seven-segment digits drawn from scratch, flat, no bevel */
+.led {
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 3px;
+  padding: 6px 10px;
+  border: 1px solid var(--color-border);
+  background: var(--color-led-bg);
+}
+.led-digit {
+  width: 19px;
+  height: 30px;
+  overflow: visible; /* the slant pushes the lower-left corner outside the viewBox */
+  transform: skewX(-6deg);
+}
+.led .on {
+  fill: var(--color-led-on);
+}
+.led .off {
+  fill: var(--color-led-off);
+}
+.readout {
+  display: grid;
+  gap: 2px;
+  color: var(--color-text-muted);
+  font-size: var(--size-font-small);
+}
+.readout-row {
+  display: flex;
+  align-items: center;
+  gap: var(--size-space-2);
+}
+.readout-unit {
+  min-width: 3ch;
+}
+/* A single red lamp for on/off values; the text beside it says the same in words. */
+.lamp {
+  width: 14px;
+  height: 14px;
+  border: 1px solid var(--color-border);
+  border-radius: 50%;
+  background: var(--color-led-off);
+}
+.lamp.on {
+  border-color: var(--color-led-on);
+  background: var(--color-led-on);
+}
