@@ -1,0 +1,11 @@
+[
+  { "v": 1, "type": "hello_ok", "re": 1, "api_version": "0.1", "engine_version": "0.0.0" },
+  {
+    "v": 1, "type": "info", "re": 3, "streaming": true, "fft_size": 2048, "rows_per_s": 30,
+    "source": { "kind": "sigmf", "path": "synth/tones_2m4.sigmf-meta", "datatype": "cu8",
+                "rate_sps": 2400000, "center_freq_hz": 100000000, "loop": true }
+  },
+  { "v": 1, "type": "info", "re": 4, "streaming": false, "fft_size": 2048, "rows_per_s": 30, "source": null },
+  { "v": 1, "type": "drop", "rows_dropped": 12 },
+  { "v": 1, "type": "error", "re": 3, "code": "not_found", "message": "synth/x.sigmf-meta does not exist" }
+]

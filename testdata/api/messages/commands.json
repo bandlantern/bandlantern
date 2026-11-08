@@ -1,0 +1,7 @@
+[
+  { "v": 1, "type": "hello", "id": 1, "token": "EXAMPLE_TOKEN" },
+  { "v": 1, "type": "get_info", "id": 2 },
+  { "v": 1, "type": "play", "id": 3, "path": "synth/tones_2m4.sigmf-meta", "loop": true },
+  { "v": 1, "type": "stop", "id": 4 },
+  { "v": 1, "type": "set_fft", "id": 5, "size": 2048, "rows_per_s": 30 }
+]

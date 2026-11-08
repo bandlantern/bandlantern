@@ -47,6 +47,20 @@ jobs:
       - name: Test
         run: ctest --preset ${{ matrix.preset }}
 
+  # Python tools: API schema, generated TypeScript types, golden frame vector.
+  python:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.13"
+      - name: Install
+        run: pip install -r tools/py/requirements.txt
+      - name: Test
+        run: python -m pytest -q tools/py
+
   # Backstop for the .githooks/pre-commit scan, which `--no-verify` or a fresh clone can skip.
   secrets:
     runs-on: ubuntu-24.04

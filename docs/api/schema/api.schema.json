@@ -1,0 +1,139 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://bandlantern.com/api/api.schema.json",
+  "title": "EngineMessage",
+  "description": "Every JSON message of the Bandlantern engine API (docs/api/messages.md).",
+  "x-api-version": "0.1",
+  "oneOf": [
+    { "$ref": "#/$defs/hello" },
+    { "$ref": "#/$defs/get_info" },
+    { "$ref": "#/$defs/play" },
+    { "$ref": "#/$defs/stop" },
+    { "$ref": "#/$defs/set_fft" },
+    { "$ref": "#/$defs/hello_ok" },
+    { "$ref": "#/$defs/info" },
+    { "$ref": "#/$defs/drop" },
+    { "$ref": "#/$defs/error" }
+  ],
+  "$defs": {
+    "Version": { "title": "EnvelopeVersion", "const": 1 },
+    "CommandId": {
+      "title": "CommandId", "description": "Client-chosen command id.",
+      "type": "integer", "minimum": 1, "maximum": 2147483647
+    },
+    "Datatype": { "title": "IqDatatype", "enum": ["cu8", "cs16_le", "cf32_le"] },
+    "ErrorCode": {
+      "title": "ErrorCode",
+      "enum": ["bad_version", "unknown_type", "bad_request", "bad_value", "bad_path", "not_found",
+               "bad_format", "source_error", "internal"]
+    },
+    "SourceInfo": {
+      "title": "SourceInfo", "type": "object",
+      "required": ["kind", "path", "datatype", "rate_sps", "center_freq_hz", "loop"],
+      "properties": {
+        "kind": { "enum": ["sigmf", "wav"] },
+        "path": { "type": "string", "description": "Relative to the data root." },
+        "datatype": { "$ref": "#/$defs/Datatype" },
+        "rate_sps": { "type": "number", "minimum": 0 },
+        "center_freq_hz": { "type": "number" },
+        "loop": { "type": "boolean" }
+      }
+    },
+
+    "hello": {
+      "title": "HelloCommand", "x-message": "command", "type": "object",
+      "required": ["v", "type", "id", "token"],
+      "properties": {
+        "v": { "$ref": "#/$defs/Version" },
+        "type": { "const": "hello" },
+        "id": { "$ref": "#/$defs/CommandId" },
+        "token": { "type": "string" }
+      }
+    },
+    "get_info": {
+      "title": "GetInfoCommand", "x-message": "command", "type": "object",
+      "required": ["v", "type", "id"],
+      "properties": {
+        "v": { "$ref": "#/$defs/Version" },
+        "type": { "const": "get_info" },
+        "id": { "$ref": "#/$defs/CommandId" }
+      }
+    },
+    "play": {
+      "title": "PlayCommand", "x-message": "command", "type": "object",
+      "required": ["v", "type", "id", "path"],
+      "properties": {
+        "v": { "$ref": "#/$defs/Version" },
+        "type": { "const": "play" },
+        "id": { "$ref": "#/$defs/CommandId" },
+        "path": { "type": "string", "description": "A .sigmf-meta or .wav file, relative to the data root." },
+        "loop": { "type": "boolean", "description": "Default false." }
+      }
+    },
+    "stop": {
+      "title": "StopCommand", "x-message": "command", "type": "object",
+      "required": ["v", "type", "id"],
+      "properties": {
+        "v": { "$ref": "#/$defs/Version" },
+        "type": { "const": "stop" },
+        "id": { "$ref": "#/$defs/CommandId" }
+      }
+    },
+    "set_fft": {
+      "title": "SetFftCommand", "x-message": "command", "type": "object",
+      "required": ["v", "type", "id"],
+      "properties": {
+        "v": { "$ref": "#/$defs/Version" },
+        "type": { "const": "set_fft" },
+        "id": { "$ref": "#/$defs/CommandId" },
+        "size": { "type": "integer", "minimum": 256, "maximum": 16384, "description": "Power of two." },
+        "rows_per_s": { "type": "number", "minimum": 1, "maximum": 60 }
+      }
+    },
+
+    "hello_ok": {
+      "title": "HelloOkEvent", "x-message": "event", "type": "object",
+      "required": ["v", "type", "re", "api_version", "engine_version"],
+      "properties": {
+        "v": { "$ref": "#/$defs/Version" },
+        "type": { "const": "hello_ok" },
+        "re": { "$ref": "#/$defs/CommandId" },
+        "api_version": { "type": "string" },
+        "engine_version": { "type": "string" }
+      }
+    },
+    "info": {
+      "title": "InfoEvent", "x-message": "event", "type": "object",
+      "required": ["v", "type", "streaming", "fft_size", "rows_per_s", "source"],
+      "properties": {
+        "v": { "$ref": "#/$defs/Version" },
+        "type": { "const": "info" },
+        "re": { "$ref": "#/$defs/CommandId" },
+        "streaming": { "type": "boolean" },
+        "fft_size": { "type": "integer", "minimum": 256, "maximum": 16384 },
+        "rows_per_s": { "type": "number", "minimum": 1, "maximum": 60 },
+        "source": { "oneOf": [{ "$ref": "#/$defs/SourceInfo" }, { "type": "null" }] }
+      }
+    },
+    "drop": {
+      "title": "DropEvent", "x-message": "event", "type": "object",
+      "required": ["v", "type", "rows_dropped"],
+      "properties": {
+        "v": { "$ref": "#/$defs/Version" },
+        "type": { "const": "drop" },
+        "rows_dropped": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "error": {
+      "title": "ErrorEvent", "x-message": "event", "type": "object",
+      "required": ["v", "type", "code", "message"],
+      "properties": {
+        "v": { "$ref": "#/$defs/Version" },
+        "type": { "const": "error" },
+        "re": { "$ref": "#/$defs/CommandId" },
+        "code": { "$ref": "#/$defs/ErrorCode" },
+        "message": { "type": "string" }
+      }
+    }
+  }
+}

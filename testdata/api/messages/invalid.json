@@ -1,0 +1,16 @@
+[
+  { "why": "id must be at least 1", "error": "below minimum",
+    "message": { "v": 1, "type": "get_info", "id": 0 } },
+  { "why": "play needs a path", "error": "missing path",
+    "message": { "v": 1, "type": "play", "id": 3 } },
+  { "why": "fft size above 16384", "error": "above maximum",
+    "message": { "v": 1, "type": "set_fft", "id": 5, "size": 32768 } },
+  { "why": "integer fields take JSON integers only", "error": "expected integer",
+    "message": { "v": 1, "type": "set_fft", "id": 5, "size": 2048.0 } },
+  { "why": "unknown error code", "error": "not one of",
+    "message": { "v": 1, "type": "error", "code": "oops", "message": "x" } },
+  { "why": "envelope version 2", "error": "expected 1",
+    "message": { "v": 2, "type": "stop", "id": 4 } },
+  { "why": "unknown message type", "error": "unknown message type",
+    "message": { "v": 1, "type": "tune", "id": 6 } }
+]
