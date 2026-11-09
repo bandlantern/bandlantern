@@ -48,6 +48,10 @@ Ham It Up v1.3 upconverter (125 MHz LO). RX only.
 - Public repo: no personal data about third parties (names, handles, private messages), no
   secrets, and only lawful captures (CURRICULUM.md Rules). Captures name no private individuals.
 - AI-code hygiene (ADR-006): never paste GPL source into prompts; keep provenance notes.
+- Keep the README `## Structure` mermaid diagram current. It shows the flow of data (sources ->
+  processing stages -> UI), not classes or callers. When a stage is added, finished, or changes
+  author, update it in the same commit (classes `ai` = Claude-built, `me` = owner-written,
+  `todo` = owner's, not written yet).
 - Record significant decisions as ADRs in docs/adr/ (copy docs/adr/0000-template.md). When porting
   code an archive ADR governs, bring that ADR over renumbered with a "was ADR-0xx" line.
 
